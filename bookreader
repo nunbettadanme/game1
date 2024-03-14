@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Reader</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    #book-content {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
+        white-space: pre-line;
+    }
+    #import-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Book Reader</h1>
+    <div id="book-content"></div>
+    <button id="import-button">Importa File di Testo</button>
+</div>
+
+<!-- Script per gestire l'importazione del file di testo -->
+<script>
+    document.getElementById('import-button').addEventListener('click', function() {
+        var fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.txt';
+        fileInput.addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                var contents = event.target.result;
+                document.getElementById('book-content').textContent = contents;
+            };
+            reader.readAsText(file);
+        });
+        fileInput.click();
+    });
+</script>
+</body>
+</html>
